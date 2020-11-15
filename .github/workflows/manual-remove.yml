@@ -18,6 +18,6 @@ jobs:
       - name: Stop and remove containers
         run: |
           docker container stop \
-            fe
+            frontend
           docker container rm \
-            fe
+            frontend

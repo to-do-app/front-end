@@ -50,7 +50,7 @@ jobs:
     needs: build
     runs-on: [self-hosted, builder]
     steps:
-      - name: Trigger FE deployment
+      - name: Trigger frontend deployment
         run: |
           curl \
             -X POST \

@@ -6,7 +6,7 @@ networks:
     name: network-todoapp
 
 services:
-  fe:
+  frontend:
     environment:
      - NODE_ENV=$NODE_ENV
     image: ghcr.io/to-do-app/frontend:$TAG
@@ -15,5 +15,5 @@ services:
       - network-todoapp
     ports:
       - $PORT:80
-    container_name: fe
+    container_name: frontend
     restart: unless-stopped
