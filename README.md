@@ -1,4 +1,4 @@
-# To-do app FE
+# To-do app frontend
 
 ## Usage
 
