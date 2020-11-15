@@ -1,0 +1,31 @@
+name: Auto test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: [self-hosted, builder]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+          
+      - name: Run linter and tests
+        run: |
+          docker image build \
+            --no-cache \
+            --tag ghcr.io/to-do-app/frontend:test \
+            --file Dockerfile.test \
+            .
+          docker container run \
+            --rm \
+            ghcr.io/to-do-app/frontend:test \
+            run lint
+          docker container run \
+            --rm \
+            ghcr.io/to-do-app/frontend:test \
+            test
+          docker image rm \
+            ghcr.io/to-do-app/frontend:test

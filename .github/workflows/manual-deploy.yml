@@ -1,0 +1,32 @@
+name: Manual deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'production'
+      tag:
+        description: 'Tag'
+        required: true
+        default: latest
+
+jobs:
+  trigger-deploy:
+    runs-on: [self-hosted, builder]
+    steps:
+      - name: Trigger FE deployment
+        run: |
+          curl \
+            -X POST \
+            --header "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
+            --header "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/to-do-app/frontend/dispatches \
+            --data '{
+              "event_type":"deploy",
+              "client_payload": {
+                "environment": "${{ github.event.inputs.environment }}",
+                "tag": "${{ github.event.inputs.tag }}"
+              }
+            }'

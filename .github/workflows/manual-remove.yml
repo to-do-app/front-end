@@ -1,0 +1,23 @@
+name: Manual remove
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        default: 'production'
+
+jobs:
+  remove:
+    runs-on: [self-hosted, "${{ github.event.inputs.environment }}"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Stop and remove containers
+        run: |
+          docker container stop \
+            fe
+          docker container rm \
+            fe

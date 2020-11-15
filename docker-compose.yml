@@ -1,0 +1,19 @@
+version: "3.7"
+    
+networks:
+  network-todoapp:
+    external: true
+    name: network-todoapp
+
+services:
+  fe:
+    environment:
+     - NODE_ENV=$NODE_ENV
+    image: ghcr.io/to-do-app/frontend:$TAG
+    build: .
+    networks:
+      - network-todoapp
+    ports:
+      - $PORT:80
+    container_name: fe
+    restart: unless-stopped

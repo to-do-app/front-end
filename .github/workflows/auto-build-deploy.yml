@@ -1,0 +1,67 @@
+name: Auto build and deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, builder]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push latest image
+        run: |
+          docker image build \
+            --no-cache \
+            --tag ghcr.io/to-do-app/frontend:latest \
+            .
+          echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login \
+            ghcr.io \
+            --username alvarogarciafer \
+            --password-stdin
+          docker image push \
+          ghcr.io/to-do-app/frontend:latest
+
+      - name: Autotag package
+        uses: butlerlogic/action-autotag@stable
+        id: action-autotag
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          strategy: package
+          tag_prefix: v
+
+      - name: Push tagged image
+        if: ${{ steps.action-autotag.outputs.tagname != '' }}
+        run: |
+          docker tag \
+            ghcr.io/to-do-app/frontend:latest \
+            ghcr.io/to-do-app/frontend:${{ steps.action-autotag.outputs.tagname }}
+          echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login \
+            ghcr.io \
+            --username alvarogarciafer \
+            --password-stdin
+          docker image push \
+            ghcr.io/to-do-app/frontend:${{ steps.action-autotag.outputs.tagname }}
+
+  trigger-deploy:
+    needs: build
+    runs-on: [self-hosted, builder]
+    steps:
+      - name: Trigger FE deployment
+        run: |
+          curl \
+            -X POST \
+            --header "Authorization: token ${{ secrets.REPO_ACCESS_TOKEN }}" \
+            --header "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/to-do-app/frontend/dispatches \
+            --data '{
+              "event_type":"deploy",
+              "client_payload": {
+                "environment": "production",
+                "tag": "latest"
+              }
+            }'
+
