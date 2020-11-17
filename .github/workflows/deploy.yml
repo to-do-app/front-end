@@ -15,7 +15,6 @@ jobs:
         env:
           NODE_ENV: ${{ github.event.client_payload.environment }}
           TAG: ${{ github.event.client_payload.tag }}
-          HOST: frontend
           PORT: 3001
         run: |
           echo ${{ secrets.PACKAGES_ACCESS_TOKEN }} | docker login \
