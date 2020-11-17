@@ -11,6 +11,7 @@ Create a `.env` file inside the project directory with the following environment
 ```
 NODE_ENV=development
 TAG=development
+HOST=frontend
 PORT=80
 ```
 
