@@ -1,4 +1,4 @@
-FROM node:14 as build
+FROM node:14
 LABEL org.opencontainers.image.source https://github.com/to-do-app/frontend
 
 WORKDIR /frontend
@@ -8,9 +8,3 @@ RUN npm install
 
 COPY . .
 RUN npm run build
-
-FROM nginx:1.19
-
-COPY --from=build /frontend/build /usr/share/nginx/html
-
-EXPOSE 80
