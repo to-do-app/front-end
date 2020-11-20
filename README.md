@@ -11,7 +11,7 @@ Create a `.env` file inside the project directory with the following environment
 ```
 NODE_ENV=development
 TAG=development
-PORT=3001
+PORT=80
 ```
 
 To start the app use:

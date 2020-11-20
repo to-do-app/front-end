@@ -1,8 +1,4 @@
 version: "3.7"
-
-volumes:
-  volume-frontend-build:
-    name: volume-frontend-build
     
 networks:
   network-todoapp:
@@ -15,10 +11,9 @@ services:
       - NODE_ENV=$NODE_ENV
     image: ghcr.io/to-do-app/frontend:$TAG
     build: .
-    volumes:
-      - type: volume
-        source: volume-frontend-build
-        target: /frontend/build
     networks:
       - network-todoapp
+    ports:
+      - $PORT:80
     container_name: frontend
+    restart: unless-stopped
