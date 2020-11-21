@@ -1,4 +1,0 @@
-listen 443 ssl;
-server_name todoapp.duckdns.org;
-ssl_certificate /etc/letsencrypt/live/todoapp.duckdns.org/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/todoapp.duckdns.org/privkey.pem;

@@ -4,6 +4,9 @@ services:
   frontend:
     volumes:
       - type: bind
+        source: ./nginx/production.conf
+        target: /etc/nginx/conf.d/default.conf
+      - type: bind
         source: /etc/letsencrypt
         target: /etc/letsencrypt
     ports:
