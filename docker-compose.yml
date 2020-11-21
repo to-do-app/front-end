@@ -10,7 +10,9 @@ services:
     environment:
       - NODE_ENV=$NODE_ENV
     image: ghcr.io/to-do-app/frontend:$TAG
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     networks:
       - network-todoapp
     ports:
