@@ -12,6 +12,6 @@ RUN npm run build
 FROM nginx:1.19	
 
 COPY --from=build /frontend/build /usr/share/nginx/html
-COPY --from=build /frontend/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /frontend/nginx /etc/nginx/conf.d
 
 EXPOSE 80
