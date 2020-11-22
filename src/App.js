@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Helmet } from "react-helmet";
+import { Box, Typography } from '@material-ui/core';
 import List from './components/List'
 import Form from './components/Form'
-import { Button } from '@material-ui/core';
 
 class App extends Component {
   state = {
@@ -27,13 +28,26 @@ class App extends Component {
   render() {
     return (
       <div className="App" data-testid="app">
+        <Helmet>
+          <title>To-do app</title>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
+        </Helmet>
+        <Typography variant="h3" gutterBottom>
+          <Box fontWeight="fontWeightBold">
+              To-do app
+          </Box>
+        </Typography>
         <List
           list={this.state.list}
           doItem={this.doItem}
-          deleteItem={this.deleteItem} />
+          deleteItem={this.deleteItem}
+        />
         <Form 
-          addItem={this.addItem} />
-        <Button color="primary">Hello World</Button>
+          addItem={this.addItem}
+        />
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button , TextField } from '@material-ui/core';
 
 class Form extends Component {
   initialState = {
@@ -23,18 +24,18 @@ class Form extends Component {
   render() {
     const {text} = this.state
     return (
-      <form>
-        <label htmlFor="text">New item</label>
-        <input
-          type="text"
+      <form noValidate autoComplete="off">
+        <TextField
           name="text"
-          id="text"
           value={text}
-          onChange={this.handleChange} />
-        <input
-          type="button"
-          value="Add"
-          onClick={this.submitForm} />
+          onChange={this.handleChange}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={this.submitForm}>
+          Add
+        </Button>
       </form>
     )
   }

@@ -1,18 +1,24 @@
 import React from 'react';
+import { Checkbox, IconButton, Typography } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const Item = (props) => {
   const {item, index, doItem, deleteItem} = props
   return (
     <div>
-      <input
+      <Checkbox
+        color="primary"
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
         name="isDone"
-        type="checkbox"
         checked={item.isDone}
-        onChange={() => doItem(index)} />
-      {item.text}
-      <button onClick={() => deleteItem(index)}>
-        x
-      </button>
+        onChange={() => doItem(index)}
+      />
+      <Typography variant="body1" display="inline">
+        {item.text}
+      </Typography>
+      <IconButton aria-label="delete" onClick={() => deleteItem(index)}>
+        <DeleteIcon fontSize="small" />
+      </IconButton>
     </div>
   )
 }
@@ -26,7 +32,8 @@ const List = (props) => {
         item={item}
         index={index}
         doItem={doItem}
-        deleteItem={deleteItem} />
+        deleteItem={deleteItem}
+      />
     )
   })
   return (
