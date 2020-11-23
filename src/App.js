@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { Helmet } from "react-helmet";
+import { CssBaseline } from '@material-ui/core';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { Box, Typography } from '@material-ui/core';
 import List from './components/List'
 import Form from './components/Form'
 
 class App extends Component {
+  darkTheme = createMuiTheme({
+    palette: {
+      type: 'dark',
+    }
+  });
+
   state = {
     list: []
   }
@@ -27,28 +35,34 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" data-testid="app">
-        <Helmet>
-          <title>To-do app</title>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Helmet>
-        <Typography variant="h3" gutterBottom>
-          <Box fontWeight="fontWeightBold">
-              To-do app
+      <React.Fragment>
+        <ThemeProvider theme={this.darkTheme}>
+          <CssBaseline />
+          <Box className="App" data-testid="app">
+            <Helmet>
+              <title>To-do app</title>
+              <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+            </Helmet>
+            <Box display="flex">
+              <Box m="auto">
+                <Typography variant="h3" gutterBottom>
+                  <Box fontWeight="fontWeightBold">
+                    To-do app
+                  </Box>
+                </Typography>
+                <List
+                  list={this.state.list}
+                  doItem={this.doItem}
+                  deleteItem={this.deleteItem}
+                />
+                <Form 
+                  addItem={this.addItem}
+                />
+              </Box>
+            </Box>
           </Box>
-        </Typography>
-        <List
-          list={this.state.list}
-          doItem={this.doItem}
-          deleteItem={this.deleteItem}
-        />
-        <Form 
-          addItem={this.addItem}
-        />
-      </div>
+        </ThemeProvider>
+      </React.Fragment>
     )
   }
 }

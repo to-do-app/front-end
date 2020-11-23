@@ -16,7 +16,10 @@ const Item = (props) => {
       <Typography variant="body1" display="inline">
         {item.text}
       </Typography>
-      <IconButton aria-label="delete" onClick={() => deleteItem(index)}>
+      <IconButton
+        aria-label="delete"
+        onClick={() => deleteItem(index)}
+      >
         <DeleteIcon fontSize="small" />
       </IconButton>
     </div>
