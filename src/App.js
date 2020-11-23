@@ -40,14 +40,14 @@ class App extends Component {
           <CssBaseline />
           <Box className="App" data-testid="app">
             <Helmet>
-              <title>To-do app</title>
+              <title>To do</title>
               <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
             </Helmet>
             <Box display="flex">
               <Box m="auto">
                 <Typography variant="h3" gutterBottom>
                   <Box fontWeight="fontWeightBold">
-                    To-do app
+                    To do
                   </Box>
                 </Typography>
                 <List
